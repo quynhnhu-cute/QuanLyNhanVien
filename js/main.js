@@ -42,8 +42,8 @@ var getDetailWorker = function (accountParams) {
   var date = document.querySelector("#datepicker");
   var salaryBasic = document.querySelector("#luongCB");
   var positionNum = document.querySelector("#chucvu");
-  console.log(positionNum);
   var workingHour = document.querySelector("#gioLam");
+  account.disabled = true;
   account.value = accountParams;
   fullName.value = workerList.arr[index].fullName;
   email.value = workerList.arr[index].email;
@@ -52,6 +52,7 @@ var getDetailWorker = function (accountParams) {
   salaryBasic.value = workerList.arr[index].salaryBasic;
   positionNum.selected = workerList.arr[index].position;
   workingHour.value = workerList.arr[index].workingHour;
+
 };
 
 // Show list worker
