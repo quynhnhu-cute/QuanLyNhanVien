@@ -22,8 +22,8 @@ getLocalStorage();
 
 var removeWorker = function (account) {
   workerList.deleteWorker(account);
-  showListWorker(workerList.arr);
   setLocalStorage();
+  showListWorker(workerList.arr);
 };
 
 //Update worker
@@ -53,15 +53,16 @@ var getDetailWorker = function (accountParams) {
   salaryBasic.value = workerList.arr[index].salaryBasic;
   positionNum.selected = workerList.arr[index].position;
   workingHour.value = workerList.arr[index].workingHour;
-
 };
 
 // Show list worker
 function showListWorker(array) {
+  console.log(array);
   var content = "";
   if (array == null) {
     return;
   }
+
   array.map(function (nv, index) {
     content += `
         <tr>
@@ -79,9 +80,10 @@ function showListWorker(array) {
             </td>
         </tr>
     `;
-    document.getElementById("tableDanhSach").innerHTML = content;
   });
+  document.getElementById("tableDanhSach").innerHTML = content;
 }
+
 showListWorker(workerList.arr);
 
 btnCapNhat.onclick = function () {
@@ -155,12 +157,12 @@ function validateForm(worker) {
     tbTKNV.style.display = "block";
     tbTKNV.innerHTML = "Tài khoản phải có độ dài từ 4 đến 6 kí tự";
     return false;
-  }else if(workerList.findIndex(worker.account) != -1){
+  } else if (workerList.findIndex(worker.account) != -1) {
     tbTKNV.style.display = "block";
-    tbTKNV.innerHTML = "Tên tài khoản không được phép trùng, vui lòng chọn tên khác";
+    tbTKNV.innerHTML =
+      "Tên tài khoản không được phép trùng, vui lòng chọn tên khác";
     return false;
-  } 
-  else {
+  } else {
     tbTKNV.style.display = "none";
   }
 
@@ -251,7 +253,11 @@ function validateForm(worker) {
 }
 
 btnThemNV.addEventListener("click", function () {
-  var account = document.querySelector("#tknv").value.toString().trim().toLowerCase();
+  var account = document
+    .querySelector("#tknv")
+    .value.toString()
+    .trim()
+    .toLowerCase();
   var fullName = document.querySelector("#name").value;
   var email = document.querySelector("#email").value;
   var password = document.querySelector("#password").value;
@@ -259,7 +265,7 @@ btnThemNV.addEventListener("click", function () {
   var salaryBasic = parseFloat(document.querySelector("#luongCB").value);
   var positionNum = parseInt(document.querySelector("#chucvu").value);
   var workingHour = parseFloat(document.querySelector("#gioLam").value);
-  
+
   var worker = new Workers(
     account,
     fullName,
@@ -278,7 +284,6 @@ btnThemNV.addEventListener("click", function () {
   workerList.addNewWorker(worker);
   setLocalStorage();
   showListWorker(workerList.arr);
-  
 });
 
 function setLocalStorage() {
