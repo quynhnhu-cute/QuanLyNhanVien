@@ -22,3 +22,4 @@ Validator.prototype.checkIntegerNum = function (value, spanID, mess, min, max) {
   document.getElementById(spanID).style.display = "none";
   return true;
 };
+

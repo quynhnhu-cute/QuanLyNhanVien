@@ -8,6 +8,7 @@ var btnCapNhat = document.querySelector("#btnCapNhat");
 btnThem.onclick = function () {
   btnThemNV.style.display = "block";
   btnCapNhat.style.display = "none";
+  document.querySelector("#tknv").disabled = false;
   clearForm();
 };
 
@@ -148,11 +149,18 @@ function validateForm(worker) {
   var chucvu = document.querySelector("#tbChucVu");
 
   // Check account
+  console.log(worker.account);
+  console.log(workerList.findIndex(worker.account));
   if (worker.account.length < 4 || worker.account.length > 6) {
     tbTKNV.style.display = "block";
     tbTKNV.innerHTML = "Tài khoản phải có độ dài từ 4 đến 6 kí tự";
     return false;
-  } else {
+  }else if(workerList.findIndex(worker.account) != -1){
+    tbTKNV.style.display = "block";
+    tbTKNV.innerHTML = "Tên tài khoản không được phép trùng, vui lòng chọn tên khác";
+    return false;
+  } 
+  else {
     tbTKNV.style.display = "none";
   }
 
@@ -243,7 +251,7 @@ function validateForm(worker) {
 }
 
 btnThemNV.addEventListener("click", function () {
-  var account = document.querySelector("#tknv").value;
+  var account = document.querySelector("#tknv").value.toString().trim().toLowerCase();
   var fullName = document.querySelector("#name").value;
   var email = document.querySelector("#email").value;
   var password = document.querySelector("#password").value;
@@ -251,7 +259,7 @@ btnThemNV.addEventListener("click", function () {
   var salaryBasic = parseFloat(document.querySelector("#luongCB").value);
   var positionNum = parseInt(document.querySelector("#chucvu").value);
   var workingHour = parseFloat(document.querySelector("#gioLam").value);
-
+  
   var worker = new Workers(
     account,
     fullName,
